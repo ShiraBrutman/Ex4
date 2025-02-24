@@ -29,6 +29,11 @@ def add_stock():
     if not data or 'symbol' not in data or 'purchase price' not in data or 'shares' not in data:
         return jsonify({'error': 'Malformed data'}), 400
 
+    try:
+        datetime.strptime(data["purchase date"], "%d-%m-%Y")
+    except ValueError:
+        return jsonify({'error': 'Invalid date format. Expected DD-MM-YYYY'}), 400
+
     if stocks_collection.find_one({'symbol': data['symbol'].upper()}):
         return jsonify({'error': 'Stock with this symbol already exists'}), 400
 
