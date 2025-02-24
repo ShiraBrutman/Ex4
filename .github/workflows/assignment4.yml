@@ -1,0 +1,71 @@
+name: assignment4
+
+on:
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Stocks Service Image
+        run: docker build -t stocks-service ./stocks
+
+      - name: Build Capital Gains Service Image
+        run: docker build -t capital-gains-service ./capital_gains_service
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build  # Runs after build job
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Start Docker services
+        run: docker-compose up -d
+
+      - name: Wait for services to be ready
+        run: sleep 10  # Waits 10 seconds to ensure containers are ready
+
+      - name: Install dependencies
+        run: pip install pytest requests pymongo
+
+      - name: Run tests with Pytest
+        run: pytest -v tests/assn4_tests.py | tee assn4_test_results.txt
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: assn4_test_results.txt
+
+  query:
+    runs-on: ubuntu-latest
+    needs: test  # Runs after test job
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Start Docker services
+        run: docker-compose up -d
+
+      - name: Execute queries
+        run: |
+          touch response.txt
+          while IFS= read -r line; do
+            SERVICE=$(echo $line | cut -d: -f1)
+            QUERY=$(echo $line | cut -d: -f2)
+            RESPONSE=$(curl -s "http://localhost:5001/$SERVICE?$QUERY")
+            echo -e "query: $line\nresponse: $RESPONSE\n" >> response.txt
+          done < query.txt
+
+      - name: Upload response file
+        uses: actions/upload-artifact@v4
+        with:
+          name: query-response
+          path: response.txt
