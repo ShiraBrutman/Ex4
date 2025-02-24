@@ -2,6 +2,13 @@ name: assignment4
 
 on:
   workflow_dispatch:  # Allows manual triggering from GitHub Actions UI
+  push:
+    branches:
+      - main  # Runs workflow when pushing to main branch
+  pull_request:
+    branches:
+      - main  # Runs workflow on pull requests to main branch
+
 
 jobs:
   build:
