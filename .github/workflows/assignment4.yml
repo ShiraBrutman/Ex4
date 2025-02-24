@@ -42,9 +42,9 @@ jobs:
         run: sleep 10  # Ensures containers are ready
 
       - name: Install dependencies
-        run:
-          pip install -r stocks/requirements.txt
-          pip install -r capital_gains_service/requirements.txt
+        run: |
+          if [ -f stocks/requirements.txt ]; then pip install -r stocks/requirements.txt; fi
+          if [ -f capital_gains_service/requirements.txt ]; then pip install -r capital_gains_service/requirements.txt; fi
 
       - name: Run tests with Pytest
         run: pytest -v tests/assn4_tests.py | tee assn4_test_results.txt
