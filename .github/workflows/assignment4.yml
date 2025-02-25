@@ -47,13 +47,19 @@ jobs:
           if [ -f capital_gains_service/requirements.txt ]; then pip install -r capital_gains_service/requirements.txt; fi
 
       - name: Run tests with Pytest
-        run: pytest -v tests/assn4_tests.py | tee assn4_test_results.txt
+        run: pytest -v tests/assn4_tests.py | tee pytest_log.txt  # Save pytest output to a log file
 
       - name: Upload test results
         uses: actions/upload-artifact@v4
         with:
           name: test-results
           path: assn4_test_results.txt
+
+      - name: Upload log file
+        uses: actions/upload-artifact@v4
+        with:
+          name: workflow-log
+          path: pytest_log.txt  # Upload the log file
 
   query:
     runs-on: ubuntu-latest
@@ -84,10 +90,16 @@ jobs:
             QUERY=$(echo $line | cut -d: -f2)
             RESPONSE=$(curl -s "http://localhost:5001/$SERVICE?$QUERY")
             echo -e "query: $line\nresponse: $RESPONSE\n" >> response.txt
-          done < query.txt
+          done < query.txt | tee query_log.txt  # Save query execution logs
 
       - name: Upload response file
         uses: actions/upload-artifact@v4
         with:
           name: query-response
           path: response.txt
+
+      - name: Upload query log file
+        uses: actions/upload-artifact@v4
+        with:
+          name: query-log
+          path: query_log.txt
