@@ -14,14 +14,15 @@ client = MongoClient(MONGO_URI)
 db = client['stocks_db']  # Database name
 stocks_collection = db['stocks']
 
-
 app = Flask(__name__)
 stocks = {}
 id_generator = 1
 
+
 @app.route('/')
 def home():
     return "Welcome to the Stock Portfolio API! Use the available endpoints to interact with the service."
+
 
 @app.route('/stocks', methods=['POST'])
 def add_stock():
@@ -51,13 +52,29 @@ def add_stock():
 
 @app.route('/stocks', methods=['GET'])
 def get_stocks():
-    try:
-        all_stocks = list(stocks_collection.find({}))
+    symbol = request.args.get('symbol')
+
+    # Get all stocks first
+    all_stocks = list(stocks_collection.find())
+
+    # If symbol parameter provided, filter in Python
+    if symbol:
+        filtered_stocks = []
         for stock in all_stocks:
-            stock['_id'] = str(stock['_id'])
-        return jsonify(all_stocks), 200
-    except Exception as e:
-        return jsonify({'error': 'An internal server error occurred' , 'details': str(e) }), 500
+            if stock.get('symbol') == symbol:
+                filtered_stocks.append(stock)
+        result = filtered_stocks
+    else:
+        result = all_stocks
+
+    # Convert ObjectId to string
+    for stock in result:
+        stock['_id'] = str(stock['_id'])
+
+    return jsonify(result), 200
+
+except Exception as e:
+return jsonify({'error': 'An internal server error occurred', 'details': str(e)}), 500
 
 
 @app.route('/stocks/<stock_id>', methods=['GET'])
@@ -71,23 +88,24 @@ def get_stock_by_id(stock_id):
     except Exception as e:
         return jsonify({'error': 'Invalid ID or server error', 'details': str(e)}), 400
 
+
 @app.route('/stocks/<stock_id>', methods=['PUT'])
 def update_stock(stock_id):
-        try:
-            data = request.get_json()
-            if not data:
-                return jsonify({'error': 'Malformed data'}), 400
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({'error': 'Malformed data'}), 400
 
-            # Update the stock in the database
-            result = stocks_collection.update_one(
-                {'_id': ObjectId(stock_id)},
-                {'$set': data}
-            )
-            if result.matched_count == 0:
-                return jsonify({"error": "Stock not found"}), 404
-            return jsonify({'message': 'Stock updated successfully'}), 200
-        except Exception as e:
-            return jsonify({'error': 'Invalid ID or server error', 'details': str(e)}), 400
+        # Update the stock in the database
+        result = stocks_collection.update_one(
+            {'_id': ObjectId(stock_id)},
+            {'$set': data}
+        )
+        if result.matched_count == 0:
+            return jsonify({"error": "Stock not found"}), 404
+        return jsonify({'message': 'Stock updated successfully'}), 200
+    except Exception as e:
+        return jsonify({'error': 'Invalid ID or server error', 'details': str(e)}), 400
 
 
 @app.route('/stocks/<stock_id>', methods=['DELETE'])
@@ -112,7 +130,7 @@ def fetch_stock_value(stock_id):
         symbol = stock.get('symbol').upper()
         shares = stock.get('shares', 0)
 
-        #Fetch the current ticker price from the external API
+        # Fetch the current ticker price from the external API
         response = requests.get(f"{BASE_URL}?ticker={symbol}", headers={"X-Api-Key": API_KEY})
         if response.status_code != 200:
             return jsonify({'server error': f'API response code {response.status_code}'}), 500
@@ -172,9 +190,3 @@ def kill_container():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)
-
-
-
-
-
-

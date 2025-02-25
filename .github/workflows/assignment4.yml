@@ -72,15 +72,54 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y docker-compose
 
       - name: Start Docker services
-        run: docker-compose up -d
+        run: |
+          docker-compose up -d
+          sleep 10 
+          docker ps 
 
       - name: Wait for services to be ready
         run: sleep 10  # Ensures containers are ready
 
       - name: Populate Database Before Queries
         run: |
-          curl -X POST "http://localhost:5001/stocks" -H "Content-Type: application/json" -d '{"name": "Apple Inc.", "symbol": "AAPL", "purchase price": 183.63, "purchase date": "22-02-2024", "shares": 19}'
-          curl -X POST "http://localhost:5001/stocks" -H "Content-Type: application/json" -d '{"name": "Alphabet Inc.", "symbol": "GOOG", "purchase price": 140.12, "purchase date": "18-06-2024", "shares": 14}'
+            # Function to add a stock only if it doesn't exist
+            add_stock() {
+              SYMBOL=$1
+              NAME=$2
+              PRICE=$3
+              DATE=$4
+              SHARES=$5
+
+              # Check if stock exists
+              EXISTS=$(curl -s "http://localhost:5001/stocks?symbol=$SYMBOL")
+
+              if [[ "$EXISTS" == "[]" ]]; then
+                curl -X POST "http://localhost:5001/stocks" -H "Content-Type: application/json" \
+                  -d "{\"name\": \"$NAME\", \"symbol\": \"$SYMBOL\", \"purchase price\": $PRICE, \"purchase date\": \"$DATE\", \"shares\": $SHARES}"
+              else
+                echo "Stock $SYMBOL already exists. Skipping..."
+              fi
+            }
+            # Stock 1: NVIDIA
+            curl -X POST "http://localhost:5001/stocks" -H "Content-Type: application/json" -d '{"name": "NVIDIA Corporation", "symbol": "NVDA", "purchase price": 134.66, "purchase date": "18-06-2024", "shares": 7}'
+          
+            # Stock 2: Apple
+            curl -X POST "http://localhost:5001/stocks" -H "Content-Type: application/json" -d '{"name": "Apple Inc.", "symbol": "AAPL", "purchase price": 183.63, "purchase date": "22-02-2024", "shares": 19}'
+          
+            # Stock 3: Google
+            curl -X POST "http://localhost:5001/stocks" -H "Content-Type: application/json" -d '{"name": "Alphabet Inc.", "symbol": "GOOG", "purchase price": 140.12, "purchase date": "24-10-2024", "shares": 14}'
+          
+            # Stock 4: Tesla
+            curl -X POST "http://localhost:5001/stocks" -H "Content-Type: application/json" -d '{"name": "Tesla, Inc.", "symbol": "TSLA", "purchase price": 194.58, "purchase date": "28-11-2022", "shares": 32}'
+          
+            # Stock 5: Microsoft
+            curl -X POST "http://localhost:5001/stocks" -H "Content-Type: application/json" -d '{"name": "Microsoft Corporation", "symbol": "MSFT", "purchase price": 420.55, "purchase date": "09-02-2024", "shares": 35}'
+          
+            # Stock 6: Intel
+            curl -X POST "http://localhost:5001/stocks" -H "Content-Type: application/json" -d '{"name": "Intel Corporation", "symbol": "INTC", "purchase price": 19.15, "purchase date": "13-01-2025", "shares": 10}'
+          
+            # Give time for the database to update
+            sleep 5
 
       - name: Execute queries
         run: |
@@ -88,6 +127,7 @@ jobs:
           while IFS= read -r line; do
             SERVICE=$(echo $line | cut -d: -f1)
             QUERY=$(echo $line | cut -d: -f2)
+            echo "Executing: http://localhost:5001/$SERVICE?$QUERY"  # Log request
             RESPONSE=$(curl -s "http://localhost:5001/$SERVICE?$QUERY")
             echo -e "query: $line\nresponse: $RESPONSE\n" >> response.txt
           done < query.txt | tee query_log.txt  # Save query execution logs
