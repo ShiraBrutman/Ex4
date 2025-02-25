@@ -1,33 +1,6 @@
-name: assignment4
-
-on:
-  workflow_dispatch:  # Allows manual triggering from GitHub Actions UI
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-
-jobs:
-  build:
+  query:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Build Stocks Service Image
-        run: docker build -t stocks-service ./stocks
-
-      - name: Build Capital Gains Service Image
-        run: docker build -t capital-gains-service ./capital_gains_service
-
-  test:
-    runs-on: ubuntu-latest
-    needs: build
+    needs: test
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -41,32 +14,10 @@ jobs:
       - name: Wait for services to be ready
         run: sleep 10  # Ensures containers are ready
 
-      - name: Install dependencies
+      - name: Populate Database Before Queries
         run: |
-          if [ -f stocks/requirements.txt ]; then pip install -r stocks/requirements.txt; fi
-          if [ -f capital_gains_service/requirements.txt ]; then pip install -r capital_gains_service/requirements.txt; fi
-
-      - name: Run tests with Pytest
-        run: pytest -v tests/assn4_tests.py | tee assn4_test_results.txt
-
-      - name: Upload test results
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-results
-          path: assn4_test_results.txt
-
-  query:
-    runs-on: ubuntu-latest
-    needs: test
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Install Docker Compose
-        run: sudo apt-get update && sudo apt-get install -y docker-compose
-
-      - name: Start Docker services
-        run: docker-compose up -d
+          curl -X POST "http://localhost:5001/stocks" -H "Content-Type: application/json" -d '{"name": "Apple Inc.", "symbol": "AAPL", "purchase price": 183.63, "purchase date": "22-02-2024", "shares": 19}'
+          curl -X POST "http://localhost:5001/stocks" -H "Content-Type: application/json" -d '{"name": "Alphabet Inc.", "symbol": "GOOG", "purchase price": 140.12, "purchase date": "18-06-2024", "shares": 14}'
 
       - name: Execute queries
         run: |
