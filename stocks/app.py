@@ -52,29 +52,23 @@ def add_stock():
 
 @app.route('/stocks', methods=['GET'])
 def get_stocks():
-    symbol = request.args.get('symbol')
+    try:
+        symbol = request.args.get('symbol')
 
-    # Get all stocks first
-    all_stocks = list(stocks_collection.find())
+        # Use MongoDB filter directly for efficiency
+        query = {'symbol': symbol} if symbol else {}
 
-    # If symbol parameter provided, filter in Python
-    if symbol:
-        filtered_stocks = []
-        for stock in all_stocks:
-            if stock.get('symbol') == symbol:
-                filtered_stocks.append(stock)
-        result = filtered_stocks
-    else:
-        result = all_stocks
+        # Fetch stocks from the database
+        result = list(stocks_collection.find(query))
 
-    # Convert ObjectId to string
-    for stock in result:
-        stock['_id'] = str(stock['_id'])
+        # Convert ObjectId to string
+        for stock in result:
+            stock['_id'] = str(stock['_id'])
 
-    return jsonify(result), 200
+        return jsonify(result), 200
 
-except Exception as e:
-return jsonify({'error': 'An internal server error occurred', 'details': str(e)}), 500
+    except Exception as e:
+        return jsonify({'error': 'An internal server error occurred', 'details': str(e)}), 500
 
 
 @app.route('/stocks/<stock_id>', methods=['GET'])
@@ -190,3 +184,9 @@ def kill_container():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)
+
+
+
+
+
+
