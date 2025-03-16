@@ -3,10 +3,17 @@ FROM python:3.11.7-slim
 # Set working directory in the container
 WORKDIR /stocks
 
+# Create logs directory
+RUN mkdir -p /stocks/logs && chmod 777 /stocks/logs
+
 # Copy requirements.txt and install dependencies
-COPY . .
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+
+RUN pip install gunicorn
+
+
+COPY . .
 
 ENV FLASK_APP=app.py
 ENV FLASK_RUN_PORT=8000
@@ -17,4 +24,4 @@ ENV MONGO_URI='mongodb://db:27017'
 EXPOSE 8000
 
 # Command to run the app
-CMD ["flask", "run", "--host=0.0.0.0", "--port=8000"]
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:8000", "app:app"]

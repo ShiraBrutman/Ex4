@@ -4,3 +4,6 @@ stocks:symbol=GOOG
 stocks:symbol=TSLA
 stocks:symbol=MSFT
 stocks:symbol=INTC
+capital-gains:numsharesgt=10
+capital-gains:numshareslt=20
+

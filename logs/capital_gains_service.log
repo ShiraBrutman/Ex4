@@ -1,0 +1,30 @@
+2025-03-16 14:53:01,270 - INFO - Logging setup complete. Capital Gains service is running.
+2025-03-16 14:53:01,271 - INFO - Starting capital gains service with MONGO_URI: mongodb://db:27017
+2025-03-16 14:53:01,273 - INFO - Successfully connected to MongoDB
+2025-03-16 14:53:01,274 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://172.22.0.4:8080
+2025-03-16 14:53:01,274 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-16 14:53:50,763 - INFO - Received request for capital gains calculation
+2025-03-16 14:53:50,764 - INFO - Query parameters - portfolio: None, numsharesgt: None, numshareslt: None
+2025-03-16 14:53:50,767 - INFO - Found 3 stocks in database
+2025-03-16 14:53:50,768 - INFO - Processing stock: NVDA, shares: 7, purchase price: 134.66
+2025-03-16 14:53:51,553 - INFO - Stock: NVDA, Current price: 121.67, Capital gain: -90.92999999999996
+2025-03-16 14:53:51,554 - INFO - Processing stock: GOOG, shares: 14, purchase price: 140.12
+2025-03-16 14:53:52,632 - INFO - Stock: GOOG, Current price: 167.62, Capital gain: 385.0
+2025-03-16 14:53:52,633 - INFO - Processing stock: AAPL, shares: 10, purchase price: 150.0
+2025-03-16 14:53:53,655 - INFO - Stock: AAPL, Current price: 213.49, Capital gain: 634.9000000000001
+2025-03-16 14:53:53,656 - INFO - Total capital gains calculated: 928.9700000000001
+2025-03-16 14:53:53,660 - INFO - 172.22.0.1 - - [16/Mar/2025 14:53:53] "GET /capital-gains HTTP/1.1" 200 -
+2025-03-16 14:54:20,106 - INFO - Received request for capital gains calculation
+2025-03-16 14:54:20,107 - INFO - Query parameters - portfolio: None, numsharesgt: None, numshareslt: None
+2025-03-16 14:54:20,113 - INFO - Found 3 stocks in database
+2025-03-16 14:54:20,113 - INFO - Processing stock: NVDA, shares: 7, purchase price: 134.66
+2025-03-16 14:54:21,345 - INFO - Stock: NVDA, Current price: 121.67, Capital gain: -90.92999999999996
+2025-03-16 14:54:21,345 - INFO - Processing stock: GOOG, shares: 14, purchase price: 140.12
+2025-03-16 14:54:21,951 - INFO - Stock: GOOG, Current price: 167.62, Capital gain: 385.0
+2025-03-16 14:54:21,952 - INFO - Processing stock: AAPL, shares: 10, purchase price: 150.0
+2025-03-16 14:54:22,639 - INFO - Stock: AAPL, Current price: 213.49, Capital gain: 634.9000000000001
+2025-03-16 14:54:22,639 - INFO - Total capital gains calculated: 928.9700000000001
+2025-03-16 14:54:22,644 - INFO - 172.22.0.1 - - [16/Mar/2025 14:54:22] "GET /capital-gains HTTP/1.1" 200 -

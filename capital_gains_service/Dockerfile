@@ -3,6 +3,9 @@ FROM python:3.11.7-slim
 # working directory in the container
 WORKDIR /capital_gains_service
 
+# Create logs directory
+RUN mkdir -p /capital_gains_service/logs && chmod 777 /capital_gains_service/logs
+
 # Copy requirements.txt and install dependencies
 COPY app.py .
 COPY requirements.txt .
