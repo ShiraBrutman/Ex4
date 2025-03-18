@@ -44,9 +44,9 @@ def setup():
 
 
 # Add this test to intentionally fail - reference commit 88ceab8
-def test_0_intentional_failure():
-    """Test 0: Intentional failure for testing workflow behavior"""
-    assert False, "Intentional test failure - reference commit 88ceab8"
+#def test_0_intentional_failure():
+#    """Test 0: Intentional failure for testing workflow behavior"""
+#   assert False, "Intentional test failure - reference commit 88ceab8"
 
 
 def test_1_post_stocks():
@@ -106,7 +106,7 @@ def test_2_get_stock_by_id():
 
     response = requests.get(f"{STOCKS_URL}/stocks/{stock_ids['stock1']}")
     assert response.status_code == 200
-    assert response.json()["symbol"] == "NVDA"
+    assert response.json()["symbol"] == "INVALID" , "Expected stock symbol to be NVDA but got different value - reference commit 4eec59d"
 
 
 def test_3_get_all_stocks():
