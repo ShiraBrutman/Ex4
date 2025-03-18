@@ -1,9 +1,4 @@
-stocks:symbol=AAPL
-stocks:symbol=NVDA
-stocks:symbol=GOOG
-stocks:symbol=TSLA
-stocks:symbol=MSFT
-stocks:symbol=INTC
-capital-gains:numsharesgt=10
-capital-gains:numshareslt=20
-
+stocks:symbol=NONEXISTENT
+capital-gains:invalid_parameter=true
+stocks:missing_required_param=
+capital-gains:malformed/query

@@ -106,7 +106,7 @@ def test_2_get_stock_by_id():
 
     response = requests.get(f"{STOCKS_URL}/stocks/{stock_ids['stock1']}")
     assert response.status_code == 200
-    assert response.json()["symbol"] == "INVALID" , "Expected stock symbol to be NVDA but got different value - reference commit 4eec59d"
+    assert response.json()["symbol"] == "NVDA"
 
 
 def test_3_get_all_stocks():
