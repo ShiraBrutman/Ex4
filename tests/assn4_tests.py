@@ -43,6 +43,12 @@ def setup():
     yield
 
 
+# Add this test to intentionally fail - reference commit 88ceab8
+def test_0_intentional_failure():
+    """Test 0: Intentional failure for testing workflow behavior"""
+    assert False, "Intentional test failure - reference commit 88ceab8"
+
+
 def test_1_post_stocks():
     """Test 1: Create three stocks and check IDs and status codes"""
     # Clear any existing stocks from previous test runs
