@@ -101,7 +101,7 @@ jobs:
       - name: Upload test results
         uses: actions/upload-artifact@v4
         with:
-          name: test-results
+          name: test-results-${{ github.run_id }}
           path: test_results/assn4_test_results.txt
       - name: Upload log file
         uses: actions/upload-artifact@v4

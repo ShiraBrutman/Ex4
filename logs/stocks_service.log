@@ -68,3 +68,72 @@
 2025-03-16 14:54:30,208 - INFO - Getting stock with ID: 67d6e61ee4907e9bf2ac01e4
 2025-03-16 14:54:30,209 - WARNING - Stock with ID: 67d6e61ee4907e9bf2ac01e4 not found
 2025-03-16 14:54:30,216 - WARNING - Invalid date format in stock data
+2025-03-18 16:45:38,731 - INFO - Logging setup complete. Service is running.
+2025-03-18 16:45:38,732 - INFO - Logging setup complete. Service is running.
+2025-03-18 16:45:38,769 - INFO - Logging setup complete. Service is running.
+2025-03-18 16:45:38,769 - INFO - Logging setup complete. Service is running.
+2025-03-18 16:45:39,750 - INFO - Successfully connected to MongoDB
+2025-03-18 16:45:39,751 - INFO - Successfully connected to MongoDB
+2025-03-18 16:45:39,753 - INFO - Flask is now using our logging system.
+2025-03-18 16:45:39,753 - INFO - Flask is now using our logging system.
+2025-03-18 16:45:39,754 - INFO - Flask is now using our logging system.
+2025-03-18 16:45:39,754 - INFO - Flask is now using our logging system.
+2025-03-18 16:45:39,754 - INFO - Flask is now using our logging system.
+2025-03-18 16:45:39,754 - INFO - Flask is now using our logging system.
+2025-03-18 16:45:39,782 - INFO - Successfully connected to MongoDB
+2025-03-18 16:45:39,782 - INFO - Successfully connected to MongoDB
+2025-03-18 16:45:39,783 - INFO - Flask is now using our logging system.
+2025-03-18 16:45:39,784 - INFO - Flask is now using our logging system.
+2025-03-18 16:45:39,784 - INFO - Flask is now using our logging system.
+2025-03-18 16:45:39,785 - INFO - Flask is now using our logging system.
+2025-03-18 16:45:39,785 - INFO - Flask is now using our logging system.
+2025-03-18 16:45:39,785 - INFO - Flask is now using our logging system.
+2025-03-18 16:48:51,404 - INFO - Home endpoint accessed
+2025-03-18 16:49:02,710 - INFO - Successfully added stock with ID: 67d9a3fedcee79b7e61eca66
+2025-03-18 16:49:29,327 - INFO - Home endpoint accessed
+2025-03-18 16:49:32,034 - INFO - Received request to get stocks
+2025-03-18 16:49:32,035 - INFO - Retrieving all stocks
+2025-03-18 16:49:32,039 - INFO - Found 3 stocks matching query
+2025-03-18 16:49:32,047 - INFO - Deleting stock with ID: 67d6e61ea16f101fe1f4e49b
+2025-03-18 16:49:32,049 - INFO - Successfully deleted stock with ID: 67d6e61ea16f101fe1f4e49b
+2025-03-18 16:49:32,053 - INFO - Deleting stock with ID: 67d6e61ee4907e9bf2ac01e5
+2025-03-18 16:49:32,055 - INFO - Successfully deleted stock with ID: 67d6e61ee4907e9bf2ac01e5
+2025-03-18 16:49:32,059 - INFO - Deleting stock with ID: 67d9a3fedcee79b7e61eca66
+2025-03-18 16:49:32,060 - INFO - Successfully deleted stock with ID: 67d9a3fedcee79b7e61eca66
+2025-03-18 16:49:32,066 - INFO - Successfully added stock with ID: 67d9a41cdcee79b7e61eca67
+2025-03-18 16:49:32,071 - INFO - Successfully added stock with ID: 67d9a41cdcee79b7e61eca68
+2025-03-18 16:49:32,076 - INFO - Successfully added stock with ID: 67d9a41cdcee79b7e61eca69
+2025-03-18 16:49:32,083 - INFO - Getting stock with ID: 67d9a41cdcee79b7e61eca67
+2025-03-18 16:49:32,091 - INFO - Received request to get stocks
+2025-03-18 16:49:32,091 - INFO - Retrieving all stocks
+2025-03-18 16:49:32,092 - INFO - Found 3 stocks matching query
+2025-03-18 16:49:32,098 - INFO - Fetching stock value for ID: 67d9a41cdcee79b7e61eca67
+2025-03-18 16:49:32,099 - INFO - Fetching current price for symbol: NVDA
+2025-03-18 16:49:32,837 - INFO - Calculated stock value for NVDA: $821.275
+2025-03-18 16:49:32,848 - INFO - Fetching stock value for ID: 67d9a41cdcee79b7e61eca68
+2025-03-18 16:49:32,850 - INFO - Fetching current price for symbol: AAPL
+2025-03-18 16:49:33,868 - INFO - Calculated stock value for AAPL: $4032.275
+2025-03-18 16:49:33,878 - INFO - Fetching stock value for ID: 67d9a41cdcee79b7e61eca69
+2025-03-18 16:49:33,880 - INFO - Fetching current price for symbol: GOOG
+2025-03-18 16:49:34,520 - INFO - Calculated stock value for GOOG: $2260.2999999999997
+2025-03-18 16:49:34,541 - INFO - Fetching stock value for ID: 67d9a41cdcee79b7e61eca67
+2025-03-18 16:49:34,545 - INFO - Fetching current price for symbol: NVDA
+2025-03-18 16:49:35,578 - INFO - Calculated stock value for NVDA: $821.3541
+2025-03-18 16:49:35,591 - INFO - Fetching stock value for ID: 67d9a41cdcee79b7e61eca68
+2025-03-18 16:49:35,593 - INFO - Fetching current price for symbol: AAPL
+2025-03-18 16:49:36,342 - INFO - Calculated stock value for AAPL: $4031.61
+2025-03-18 16:49:36,354 - INFO - Fetching stock value for ID: 67d9a41cdcee79b7e61eca69
+2025-03-18 16:49:36,357 - INFO - Fetching current price for symbol: GOOG
+2025-03-18 16:49:37,137 - INFO - Calculated stock value for GOOG: $2260.2999999999997
+2025-03-18 16:49:37,152 - INFO - Calculating portfolio value
+2025-03-18 16:49:37,154 - INFO - Found 3 stocks in portfolio
+2025-03-18 16:49:37,852 - INFO - Current value for NVDA: $821.24
+2025-03-18 16:49:38,960 - INFO - Current value for AAPL: $4031.2299999999996
+2025-03-18 16:49:39,697 - INFO - Current value for GOOG: $2260.2999999999997
+2025-03-18 16:49:39,698 - INFO - Total portfolio value: $7112.769999999999
+2025-03-18 16:49:39,712 - WARNING - Malformed stock data received
+2025-03-18 16:49:39,720 - INFO - Deleting stock with ID: 67d9a41cdcee79b7e61eca68
+2025-03-18 16:49:39,722 - INFO - Successfully deleted stock with ID: 67d9a41cdcee79b7e61eca68
+2025-03-18 16:49:39,727 - INFO - Getting stock with ID: 67d9a41cdcee79b7e61eca68
+2025-03-18 16:49:39,729 - WARNING - Stock with ID: 67d9a41cdcee79b7e61eca68 not found
+2025-03-18 16:49:39,733 - WARNING - Invalid date format in stock data

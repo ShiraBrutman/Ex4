@@ -28,3 +28,36 @@
 2025-03-16 14:54:22,639 - INFO - Stock: AAPL, Current price: 213.49, Capital gain: 634.9000000000001
 2025-03-16 14:54:22,639 - INFO - Total capital gains calculated: 928.9700000000001
 2025-03-16 14:54:22,644 - INFO - 172.22.0.1 - - [16/Mar/2025 14:54:22] "GET /capital-gains HTTP/1.1" 200 -
+2025-03-18 16:45:38,778 - INFO - Logging setup complete. Capital Gains service is running.
+2025-03-18 16:45:38,779 - INFO - Starting capital gains service with MONGO_URI: mongodb://db:27017
+2025-03-18 16:45:38,784 - INFO - Successfully connected to MongoDB
+2025-03-18 16:45:38,785 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://172.22.0.4:8080
+2025-03-18 16:45:38,786 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-18 16:49:09,116 - INFO - Home endpoint accessed
+2025-03-18 16:49:09,122 - INFO - 172.22.0.1 - - [18/Mar/2025 16:49:09] "GET / HTTP/1.1" 200 -
+2025-03-18 16:49:19,804 - INFO - Received request for capital gains calculation
+2025-03-18 16:49:19,805 - INFO - Query parameters - portfolio: None, numsharesgt: 5, numshareslt: None
+2025-03-18 16:49:19,811 - INFO - Found 3 stocks in database
+2025-03-18 16:49:19,811 - INFO - After applying numsharesgt filter: 3 stocks remaining
+2025-03-18 16:49:19,812 - INFO - Processing stock: NVDA, shares: 7, purchase price: 134.66
+2025-03-18 16:49:20,547 - INFO - Stock: NVDA, Current price: 117.285, Capital gain: -121.625
+2025-03-18 16:49:20,548 - INFO - Processing stock: GOOG, shares: 14, purchase price: 140.12
+2025-03-18 16:49:21,267 - INFO - Stock: GOOG, Current price: 161.54, Capital gain: 299.8799999999998
+2025-03-18 16:49:21,268 - INFO - Processing stock: AAPL, shares: 10, purchase price: 150.0
+2025-03-18 16:49:22,328 - INFO - Stock: AAPL, Current price: 212.2397, Capital gain: 622.3969999999999
+2025-03-18 16:49:22,328 - INFO - Total capital gains calculated: 800.6519999999998
+2025-03-18 16:49:22,332 - INFO - 172.22.0.1 - - [18/Mar/2025 16:49:22] "GET /capital-gains?numsharesgt=5 HTTP/1.1" 200 -
+2025-03-18 16:49:29,333 - INFO - Received request for capital gains calculation
+2025-03-18 16:49:29,334 - INFO - Query parameters - portfolio: None, numsharesgt: None, numshareslt: None
+2025-03-18 16:49:29,335 - INFO - Found 3 stocks in database
+2025-03-18 16:49:29,336 - INFO - Processing stock: NVDA, shares: 7, purchase price: 134.66
+2025-03-18 16:49:30,608 - INFO - Stock: NVDA, Current price: 117.35, Capital gain: -121.17000000000002
+2025-03-18 16:49:30,609 - INFO - Processing stock: GOOG, shares: 14, purchase price: 140.12
+2025-03-18 16:49:31,353 - INFO - Stock: GOOG, Current price: 161.485, Capital gain: 299.1100000000001
+2025-03-18 16:49:31,354 - INFO - Processing stock: AAPL, shares: 10, purchase price: 150.0
+2025-03-18 16:49:32,020 - INFO - Stock: AAPL, Current price: 212.225, Capital gain: 622.25
+2025-03-18 16:49:32,021 - INFO - Total capital gains calculated: 800.19
+2025-03-18 16:49:32,024 - INFO - 172.22.0.1 - - [18/Mar/2025 16:49:32] "GET /capital-gains HTTP/1.1" 200 -
