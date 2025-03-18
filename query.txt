@@ -1,4 +1,4 @@
-stocks:symbol=NONEXISTENT
-capital-gains:invalid_parameter=true
-stocks:missing_required_param=
-capital-gains:malformed/query
+tocks:symbol=NVDA
+capital-gains:symbol=AAPL
+stocks:shares=7
+capital-gains:purchase_date=24-10-2024

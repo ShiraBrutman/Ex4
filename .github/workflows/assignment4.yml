@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Initialize log file
         run: |
-          echo "Workflow started at $(date)" > log.txt
+          echo "Workflow started at $(date -Iminutes)" > log.txt
           echo "Your Name" >> log.txt
       - name: Set up Docker Build
         uses: docker/setup-buildx-action@v3
@@ -84,31 +84,32 @@ jobs:
           if [ -f stocks/requirements.txt ]; then pip install -r stocks/requirements.txt; fi
           if [ -f capital_gains_service/requirements.txt ]; then pip install -r capital_gains_service/requirements.txt; fi
           pip install pytest requests
-      - name: Run tests with Pytest for expected failures
+      - name: Run tests with Pytest
         id: run-tests
         if: steps.start-services.outputs.status == 'success'
         run: |
           mkdir -p test_results
           
-          # Run pytest but don't fail the workflow - we expect certain failures for 4eec59d
-          python -m pytest -v tests/assn4_tests.py | tee test_results/assn4_test_results.txt
+          # Run pytest and save exit code
+          pytest -v tests/assn4_tests.py | tee test_results/assn4_test_results.txt
+          TEST_EXIT_CODE=$?
           
-          # Check for expected failures from 4eec59d
-          if grep -q "test_2_get_stock_by_id.*FAILED.*Expected stock symbol to be NVDA but got different value - reference commit 4eec59d" test_results/assn4_test_results.txt; then
-            echo "Found expected test failure for 4eec59d in test_2_get_stock_by_id. This is OK to proceed." >> log.txt
-            echo "1 test failed - was expected to pass - check commit - 4eec59d" >> log.txt
+          # Log the test result
+          if [ $TEST_EXIT_CODE -eq 0 ]; then
+            echo "Tests passed successfully" >> log.txt
+            echo "tests succeeded" >> log.txt
+            echo "status=success" >> $GITHUB_OUTPUT
+          else
+            echo "Tests failed with exit code $TEST_EXIT_CODE" >> log.txt
+            echo "tests failed" >> log.txt
+            echo "status=failure" >> $GITHUB_OUTPUT
+            exit 1
           fi
-          
-          # Write test summary to log
-          echo "Test execution completed - results in test_results/assn4_test_results.txt" >> log.txt
-          
-          # This step always succeeds since we expect certain tests to fail
-          echo "Tests executed" >> log.txt
       - name: Upload test results
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: test-results-${{ github.run_id }}
+          name: assn4_test_results.txt
           path: test_results/assn4_test_results.txt
       - name: Upload log file
         uses: actions/upload-artifact@v4
@@ -191,7 +192,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: query-response-${{ github.run_id }}
+          name: response.txt
           path: response.txt
       - name: Upload final log file
         uses: actions/upload-artifact@v4
