@@ -88,10 +88,11 @@ jobs:
         id: run-tests
         if: steps.start-services.outputs.status == 'success'
         run: |
+          set -e
           mkdir -p test_results
           pytest -v tests/assn4_tests.py | tee test_results/assn4_test_results.txt
           # Important: Capture pytest's exit code directly!
-          exitcode=$?
+          exit ${PIPESTATUS[0]}
           
           # Log the test result
           if [ $exitcode -eq 0 ]; then
