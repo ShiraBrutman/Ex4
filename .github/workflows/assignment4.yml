@@ -24,10 +24,10 @@ jobs:
         run: |
           if docker build -t stocks-service ./stocks; then
             echo "Stocks Service image built successfully" >> log.txt
-            echo "::set-output name=status::success"
+            echo "status=success" >> $GITHUB_OUTPUT
           else
             echo "Failed to build Stocks Service image" >> log.txt
-            echo "::set-output name=status::failure"
+            echo "status=failure" >> $GITHUB_OUTPUT
             exit 1
           fi
       - name: Build Capital Gains Service Image
@@ -67,11 +67,11 @@ jobs:
           if docker-compose up -d; then
             echo "Docker services started successfully" >> log.txt
             echo "Container up and running" >> log.txt
-            echo "::set-output name=status::success"
+            echo "status=success" >> $GITHUB_OUTPUT
           else
             echo "Failed to start Docker services" >> log.txt
             echo "Container failed to run" >> log.txt
-            echo "::set-output name=status::failure"
+            echo "status=failure" >> $GITHUB_OUTPUT
             exit 1
           fi
       - name: Wait for services to be ready
@@ -91,11 +91,11 @@ jobs:
           if pytest -v tests/assn4_tests.py | tee test_results/assn4_test_results.txt; then
             echo "Tests passed successfully" >> log.txt
             echo "tests succeeded" >> log.txt
-            echo "::set-output name=status::success"
+            echo "status=success" >> $GITHUB_OUTPUT
           else
             echo "Tests failed" >> log.txt
             echo "tests failed" >> log.txt
-            echo "::set-output name=status::failure"
+            echo "status=failure" >> $GITHUB_OUTPUT
             exit 1
           fi
       - name: Upload test results
