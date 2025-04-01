@@ -108,7 +108,7 @@ def test_3_get_all_stocks():
     response = requests.get(f"{STOCKS_URL}/stocks")
     assert response.status_code == 200
     assert isinstance(response.json(), list)
-    assert len(response.json()) >= 2  # At least the 3 stocks we added
+    assert len(response.json()) >= 3  # At least the 3 stocks we added
 
 
 def test_4_get_stock_values():
