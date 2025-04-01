@@ -1,4 +1,4 @@
-FROM python:3.11.7-slim
+# FROM python:3.11.7-slim
 #FROM  invalid_image:1.0
 
 # Set working directory in the container
